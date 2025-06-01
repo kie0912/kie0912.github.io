@@ -1013,15 +1013,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-aos="fade-right">
+                    <tr data-aos="fade-right" data-aos-once="true">
                         <td>ダンスサークル</td>
                         <td>ZEN大学にてダンスサークルを設立・運営中</td>
                     </tr>
-                    <tr data-aos="fade-right" data-aos-delay="100">
+                    <tr data-aos="fade-right" data-aos-delay="100" data-aos-once="true">
                         <td>サークル活動</td>
                         <td>週2回の定期練習の企画・運営、年2回の発表会の開催</td>
                     </tr>
-                    <tr data-aos="fade-right" data-aos-delay="200">
+                    <tr data-aos="fade-right" data-aos-delay="200" data-aos-once="true">
                         <td>ワークショップ</td>
                         <td>大学内外のダンサーを招いた特別レッスンの企画・運営</td>
                     </tr>
@@ -1036,8 +1036,8 @@
         // AOS初期化
         AOS.init({
             duration: 800,
-            once: false,
-            mirror: true
+            once: true,
+            mirror: false
         });
         
         // スキルレベルバーのアニメーション

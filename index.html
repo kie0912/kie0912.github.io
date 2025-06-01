@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スキル・経歴 | 上原輝恵 ポートフォリオ</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
             --main-color: #00a0a0;
@@ -34,6 +35,7 @@
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            overflow-x: hidden;
         }
         
         .header {
@@ -103,6 +105,7 @@
             top: 10px;
             left: 5%;
             transform: rotate(-15deg);
+            animation: floatLeftRight 8s ease-in-out infinite;
         }
         
         .ballet-illustration.right {
@@ -110,6 +113,13 @@
             right: 5%;
             transform: rotate(15deg) scaleX(-1);
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,20 C55,15 60,18 65,20 C70,25 65,35 60,38 C55,45 50,55 45,65 C40,75 35,85 40,90 C45,95 55,90 60,85 M45,65 C50,60 55,55 60,60 C65,65 70,75 75,80" stroke="%233182CE" stroke-width="2" fill="none"/></svg>');
+            animation: floatLeftRight 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes floatLeftRight {
+            0% { transform: rotate(-15deg) translateX(0); }
+            50% { transform: rotate(-10deg) translateX(20px); }
+            100% { transform: rotate(-15deg) translateX(0); }
         }
         
         .profile-img-container {
@@ -131,6 +141,13 @@
         
         .profile-img:hover {
             transform: scale(1.05);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1.05); }
         }
         
         .artistic-circle {
@@ -176,6 +193,14 @@
             z-index: 2;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             font-family: 'Playfair Display', serif;
+            animation: colorShift 8s infinite;
+        }
+        
+        @keyframes colorShift {
+            0% { color: var(--ballet-color); }
+            33% { color: var(--pilates-color); }
+            66% { color: var(--coaching-color); }
+            100% { color: var(--ballet-color); }
         }
         
         .profile-title {
@@ -185,6 +210,18 @@
             margin-bottom: 15px;
             position: relative;
             z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .content {
@@ -196,6 +233,23 @@
             border-bottom: 2px solid var(--ballet-color);
             padding-bottom: 5px;
             margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: var(--ballet-color);
+            animation: slideRight 1.5s forwards;
+        }
+        
+        @keyframes slideRight {
+            to { left: 0; }
         }
         
         h3 {
@@ -213,6 +267,14 @@
             margin: 20px 0;
             background-color: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .table-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         th {
@@ -227,8 +289,18 @@
             border-bottom: 1px solid var(--border-color);
         }
         
+        tr {
+            transition: background-color 0.3s ease;
+        }
+        
         tr:nth-child(even) {
             background-color: var(--ballet-light);
+        }
+        
+        tr:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.01);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .highlight {
@@ -252,6 +324,17 @@
             left: 0;
             height: 100%;
             border-radius: 6px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.1, 0.5, 0.5, 1);
+        }
+        
+        .level-animation {
+            animation: levelGrow 1.5s forwards;
+        }
+        
+        @keyframes levelGrow {
+            from { width: 0; }
+            to { width: 100%; }
         }
         
         .ballet .level { background-color: var(--ballet-color); }
@@ -334,11 +417,12 @@
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .channel-link a:hover {
             background-color: #c43c5c;
+            transform: scale(1.05);
         }
         
         /* バレエ活動テーブル */
@@ -516,6 +600,72 @@
             animation: twinkle 2s infinite;
         }
         
+        /* 新しいアニメーション */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { 
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInRight {
+            from { 
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes rotate3D {
+            0% { transform: perspective(1000px) rotateY(0deg); }
+            100% { transform: perspective(1000px) rotateY(360deg); }
+        }
+        
+        /* 流れ星アニメーション */
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(0) translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(500px) translateY(-500px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,215,0,1) 100%);
+            opacity: 0;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 6px gold);
+            animation: shootingStar 2s linear infinite;
+            animation-delay: calc(var(--delay) * 1s);
+        }
+        
         /* ヘッダー用装飾要素 */
         #decorations {
             position: absolute;
@@ -525,6 +675,58 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
+        }
+        
+        /* AOS アニメーション用のカスタムクラス */
+        [data-aos="custom-fade-up"] {
+            opacity: 0;
+            transform: translateY(50px);
+            transition-property: transform, opacity;
+        }
+        
+        [data-aos="custom-fade-up"].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* テキストのグラデーションアニメーション */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--ballet-color), var(--pilates-color), var(--coaching-color), var(--it-color));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 点滅するボーダー */
+        .blinking-border {
+            position: relative;
+        }
+        
+        .blinking-border::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            animation: borderBlink 2s infinite;
+        }
+        
+        @keyframes borderBlink {
+            0% { border-color: rgba(217, 79, 112, 0); }
+            50% { border-color: rgba(217, 79, 112, 1); }
+            100% { border-color: rgba(217, 79, 112, 0); }
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -565,6 +767,11 @@
             <div class="sparkle" style="top: 55%; left: 70%; animation-delay: 3.1s;"></div>
             <div class="sparkle" style="top: 65%; left: 80%; animation-delay: 3.6s;"></div>
             <div class="sparkle" style="top: 50%; left: 90%; animation-delay: 4.1s;"></div>
+            
+            <!-- 流れ星の追加 -->
+            <div class="shooting-star" style="top: 10%; left: 0; --delay: 2;"></div>
+            <div class="shooting-star" style="top: 30%; left: 20%; --delay: 5;"></div>
+            <div class="shooting-star" style="top: 60%; left: -10%; --delay: 8;"></div>
         </div>
         
         <!-- バレエダンサーの装飾 -->
@@ -576,29 +783,29 @@
         <div class="ballet-illustration left"></div>
         <div class="ballet-illustration right"></div>
         
-        <div class="artistic-frame">
+        <div class="artistic-frame" data-aos="fade-down" data-aos-duration="1000">
             <div class="profile-img-container">
                 <div class="artistic-circle"></div>
-                <img src="ballet-profile.jpg" alt="Kie Uehara - バレエダンサー" class="profile-img">
+                <img src="https://sdmntpreastus2.oaiusercontent.com/files/00000000-b150-61f6-a9ad-392d9582f2e0/raw?se=2025-06-01T17%3A23%3A13Z&sp=r&sv=2024-08-04&sr=b&scid=bc22864b-dacf-5708-974e-5d46a4b80585&skoid=b0fd38cc-3d33-418f-920e-4798de4acdd1&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-01T16%3A19%3A39Z&ske=2025-06-02T16%3A19%3A39Z&sks=b&skv=2024-08-04&sig=Pv3BMp0NQ2K8WTq1MjtSSl%2BSglOXEEfuGLPivHsV5o0%3D" alt="Kie Uehara - バレエダンサー" class="profile-img">
             </div>
         </div>
         
-        <h1 class="profile-name">Kie Uehara</h1>
-        <p class="profile-title">Ballet Dancer &amp; Pilates Instructor</p>
+        <h1 class="profile-name gradient-text" data-aos="fade-up" data-aos-delay="300">Kie Uehara</h1>
+        <p class="profile-title" data-aos="fade-up" data-aos-delay="500">Ballet Dancer &amp; Pilates Instructor</p>
     </header>
 
     <div class="content">
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2>スキル一覧</h2>
             <div class="skills-grid">
-                <div class="skill-card ballet">
+                <div class="skill-card ballet blinking-border" data-aos="fade-up" data-aos-delay="100">
                     <h3>バレエ・ダンス</h3>
                     <p>クラシックバレエ</p>
-                    <div class="skill-level ballet"><div class="level" style="width: 95%;"></div></div>
+                    <div class="skill-level ballet"><div class="level" style="width: 0;" data-width="95%"></div></div>
                     <p>コンテンポラリーダンス</p>
-                    <div class="skill-level ballet"><div class="level" style="width: 90%;"></div></div>
+                    <div class="skill-level ballet"><div class="level" style="width: 0;" data-width="90%"></div></div>
                     <p>振付・演出</p>
-                    <div class="skill-level ballet"><div class="level" style="width: 80%;"></div></div>
+                    <div class="skill-level ballet"><div class="level" style="width: 0;" data-width="80%"></div></div>
                     
                     <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/kp64C9OVwkw" title="バレエパフォーマンス" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -614,57 +821,57 @@
                     </div>
                 </div>
                 
-                <div class="skill-card pilates">
+                <div class="skill-card pilates" data-aos="fade-up" data-aos-delay="200">
                     <h3>ピラティス</h3>
                     <p>マットピラティス</p>
-                    <div class="skill-level pilates"><div class="level" style="width: 90%;"></div></div>
+                    <div class="skill-level pilates"><div class="level" style="width: 0;" data-width="90%"></div></div>
                     <p>マシンピラティス</p>
-                    <div class="skill-level pilates"><div class="level" style="width: 80%;"></div></div>
+                    <div class="skill-level pilates"><div class="level" style="width: 0;" data-width="80%"></div></div>
                     <p>ワークショップ企画・運営</p>
-                    <div class="skill-level pilates"><div class="level" style="width: 85%;"></div></div>
+                    <div class="skill-level pilates"><div class="level" style="width: 0;" data-width="85%"></div></div>
                 </div>
                 
-                <div class="skill-card coaching">
+                <div class="skill-card coaching" data-aos="fade-up" data-aos-delay="300">
                     <h3>コーチング・指導</h3>
                     <p>子ども向け指導</p>
-                    <div class="skill-level coaching"><div class="level" style="width: 85%;"></div></div>
+                    <div class="skill-level coaching"><div class="level" style="width: 0;" data-width="85%"></div></div>
                     <p>ダンスサークル運営</p>
-                    <div class="skill-level coaching"><div class="level" style="width: 90%;"></div></div>
+                    <div class="skill-level coaching"><div class="level" style="width: 0;" data-width="90%"></div></div>
                     <p>ピラティス指導</p>
-                    <div class="skill-level coaching"><div class="level" style="width: 85%;"></div></div>
+                    <div class="skill-level coaching"><div class="level" style="width: 0;" data-width="85%"></div></div>
                 </div>
                 
-                <div class="skill-card it">
+                <div class="skill-card it" data-aos="fade-up" data-aos-delay="400">
                     <h3>IT・エンジニアリング</h3>
                     <p>Web開発</p>
-                    <div class="skill-level it"><div class="level" style="width: 40%;"></div></div>
+                    <div class="skill-level it"><div class="level" style="width: 0;" data-width="40%"></div></div>
                     <p>アプリケーション設計</p>
-                    <div class="skill-level it"><div class="level" style="width: 30%;"></div></div>
+                    <div class="skill-level it"><div class="level" style="width: 0;" data-width="30%"></div></div>
                     <p>プログラミング基礎</p>
-                    <div class="skill-level it"><div class="level" style="width: 35%;"></div></div>
+                    <div class="skill-level it"><div class="level" style="width: 0;" data-width="35%"></div></div>
                 </div>
                 
-                <div class="skill-card language">
+                <div class="skill-card language" data-aos="fade-up" data-aos-delay="500">
                     <h3>語学</h3>
                     <p>英語</p>
-                    <div class="skill-level language"><div class="level" style="width: 80%;"></div></div>
+                    <div class="skill-level language"><div class="level" style="width: 0;" data-width="80%"></div></div>
                     <p>日本語</p>
-                    <div class="skill-level language"><div class="level" style="width: 100%;"></div></div>
+                    <div class="skill-level language"><div class="level" style="width: 0;" data-width="100%"></div></div>
                 </div>
                 
-                <div class="skill-card communication">
+                <div class="skill-card communication" data-aos="fade-up" data-aos-delay="600">
                     <h3>コミュニケーション</h3>
                     <p>プレゼンテーション</p>
-                    <div class="skill-level communication"><div class="level" style="width: 85%;"></div></div>
+                    <div class="skill-level communication"><div class="level" style="width: 0;" data-width="85%"></div></div>
                     <p>チームマネジメント</p>
-                    <div class="skill-level communication"><div class="level" style="width: 80%;"></div></div>
+                    <div class="skill-level communication"><div class="level" style="width: 0;" data-width="80%"></div></div>
                     <p>顧客対応</p>
-                    <div class="skill-level communication"><div class="level" style="width: 90%;"></div></div>
+                    <div class="skill-level communication"><div class="level" style="width: 0;" data-width="90%"></div></div>
                 </div>
             </div>
         </div>
 
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2 style="color: var(--ballet-color); border-bottom-color: var(--ballet-color);">バレエ活動・海外留学経験</h2>
             <table class="ballet-table">
                 <thead>
@@ -675,42 +882,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="100">
                         <td>高校卒業～ZEN大学入学前</td>
                         <td>集中バレエレッスン</td>
                         <td>週6回・1日約6時間の集中レッスンを継続</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="200">
                         <td>留学経験</td>
                         <td>海外バレエ学校合格</td>
                         <td>カナダ、アメリカ、イギリス、デンマークの複数のバレエ学校から入学許可や短期留学プログラムに合格</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="300">
                         <td>2023年6月</td>
                         <td>アトランタバレエ団 留学</td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="400">
                         <td>2024年7月</td>
                         <td>オーランドバレエ 留学</td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="500">
                         <td>現在</td>
                         <td>フリーランスダンサー</td>
                         <td>国内外の舞台に出演中</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="600">
                         <td>2023年夏・2024年夏</td>
                         <td>清里バレエフィールド</td>
                         <td>出演</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="700">
                         <td>2025年2月</td>
                         <td>マラーホフ版「白鳥の湖」</td>
                         <td>アトリエよしの公演に出演</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="800">
                         <td>2025年10月</td>
                         <td>新作公演</td>
                         <td>2作品に出演予定（現在リハーサル進行中）</td>
@@ -719,7 +926,7 @@
             </table>
         </div>
 
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2 style="color: var(--coaching-color); border-bottom-color: var(--coaching-color);">アルバイト経験</h2>
             <table class="work-table">
                 <thead>
@@ -730,12 +937,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="100">
                         <td>2023年7月～10月</td>
                         <td>水泳教室 受付スタッフ</td>
                         <td>電話・来客対応、予約管理など</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="200">
                         <td>2024年5月～現在</td>
                         <td>学童保育スタッフ</td>
                         <td>子どもたちの安全管理、学習支援、遊びの企画・実施など</td>
@@ -744,7 +951,7 @@
             </table>
         </div>
 
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2 style="color: var(--pilates-color); border-bottom-color: var(--pilates-color);">ピラティスインストラクター活動</h2>
             <table class="pilates-table">
                 <thead>
@@ -755,17 +962,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="100">
                         <td>2021年</td>
                         <td>マットピラティス資格取得</td>
                         <td>不定期でマットピラティスのワークショップを企画・開催</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="200">
                         <td>2025年1月</td>
                         <td>マシンピラティス資格取得コース修了</td>
                         <td>資格試験合格に向けて実技・指導スキルの研鑽中</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="300">
                         <td>2025年2月～現在</td>
                         <td>マシンピラティスインストラクター</td>
                         <td>アルバイト勤務中</td>
@@ -774,7 +981,7 @@
             </table>
         </div>
 
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2 style="color: var(--it-color); border-bottom-color: var(--it-color);">IT・エンジニアリング学習</h2>
             <table class="it-table">
                 <thead>
@@ -785,12 +992,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="100">
                         <td>2025年3月～現在</td>
                         <td>アントレプレナー向けエンジニア講座</td>
                         <td>受講中</td>
                     </tr>
-                    <tr>
+                    <tr data-aos="fade-right" data-aos-delay="200">
                         <td>現在</td>
                         <td>ウェブアプリケーション開発</td>
                         <td>企業向けウェブアプリケーション制作に取り組み中</td>
@@ -799,7 +1006,7 @@
             </table>
         </div>
 
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2 style="color: var(--language-color); border-bottom-color: var(--language-color);">大学での活動</h2>
             <table class="university-table">
                 <thead>
@@ -809,7 +1016,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-aos="fade-right">
                         <td>ダンスサークル</td>
                         <td>ZEN大学にてダンスサークルを設立・運営中</td>
                     </tr>
@@ -817,5 +1024,78 @@
             </table>
         </div>
     </div>
+    
+    <!-- AOS アニメーションライブラリとカスタムスクリプト -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            once: false,
+            mirror: true
+        });
+        
+        // スキルレベルバーのアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            // すべてのスキルレベルに対して処理
+            const skillLevels = document.querySelectorAll('.skill-level .level');
+            
+            // Intersection Observerの設定
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetWidth = entry.target.getAttribute('data-width');
+                        entry.target.style.width = targetWidth;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // 各スキルレベルを監視対象に追加
+            skillLevels.forEach(level => {
+                observer.observe(level);
+            });
+            
+            // テーブルのアニメーション
+            const tables = document.querySelectorAll('table');
+            const tableObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('table-visible');
+                        tableObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            tables.forEach(table => {
+                tableObserver.observe(table);
+            });
+            
+            // 流れ星の定期的な追加
+            setInterval(() => {
+                const starsContainer = document.querySelector('.stars-container');
+                
+                // 既存の流れ星を削除（多すぎないようにするため）
+                const existingStars = document.querySelectorAll('.shooting-star');
+                if (existingStars.length > 10) {
+                    existingStars[0].remove();
+                }
+                
+                // 新しい流れ星を追加
+                const newStar = document.createElement('div');
+                newStar.className = 'shooting-star';
+                newStar.style.top = Math.random() * 50 + '%';
+                newStar.style.left = '-5%';
+                newStar.style.setProperty('--delay', '0');
+                
+                starsContainer.appendChild(newStar);
+                
+                // アニメーション終了後に削除
+                setTimeout(() => {
+                    newStar.remove();
+                }, 2000);
+            }, 3000);
+        });
+    </script>
 </body>
 </html> 
